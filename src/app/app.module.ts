@@ -17,8 +17,9 @@ const appRoutes:Routes=[
   {path:'',component:HomeComponent},
   {path:'users',component:UsersComponent},
   // динамічні параметри /:
-  {path:'user/:id/:name',component:UserComponent},
+  {path:'users/:id/:name',component:UserComponent},
   {path:'servers',component:ServersComponent},
+  {path:'servers/:id',component:ServerComponent},
   {path:'servers/:id/edit',component:EditServerComponent},
 ]
 

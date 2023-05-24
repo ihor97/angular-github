@@ -4,7 +4,7 @@
         <!-- [queryParams]="{allowEdit:'1'}" задаємо обєкт з кверіпарамерами -->
         <!-- fragment="loading" фрагмент -->
         <a
-        [routerLink]="['/servers',5,'edit']"
+        [routerLink]="['/servers',server.id]"
         [queryParams]="{allowEdit:'1'}"
         fragment="loading"
           href="#"
@@ -23,7 +23,7 @@
       <button (click)="onReload()" class="btn btn-primary" routerLink="../servers">Reload page </button>
       <app-edit-server></app-edit-server>
       <hr>
-      <app-server></app-server>
+      <!-- <app-server></app-server> -->
     </div>
   </div>
   
