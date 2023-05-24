@@ -1,30 +1,24 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-4">
-      <div class="list-group">
-        <!-- [queryParams]="{allowEdit:'1'}" задаємо обєкт з кверіпарамерами -->
-        <!-- fragment="loading" фрагмент -->
-        <a
-        [routerLink]="['/servers',server.id]"
-        [queryParams]="{allowEdit:'1'}"
-        fragment="loading"
-          href="#"
-          class="list-group-item"
-          *ngFor="let server of servers">
-          {{ server.name }}
-        </a>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-4">
-      <!-- відносний шлях без слеша -->
-      <!-- відносний шлях прикрипляється до актуальної адреси в браузері  -->
-      <!-- ./ === нічого перед силкою тобто це є вілносні шляхи -->
-      <!-- ../ перейти вверх по силках ../ -->
-      <!--<a routerLink="../servers">Reload</a>  -->
-      <button (click)="onReload()" class="btn btn-primary" routerLink="../servers">Reload page </button>
-      <app-edit-server></app-edit-server>
-      <hr>
-      <!-- <app-server></app-server> -->
+  <div class="col-xs-12 col-sm-4">
+    <div class="list-group">
+      <!-- [queryParams]="{allowEdit:'1'}" задаємо обєкт з кверіпарамерами -->
+      <!-- fragment="loading" фрагмент -->
+      <a [routerLink]="['/servers',server.id]" [queryParams]="{allowEdit:'1'}" fragment="loading" href="#"
+        class="list-group-item" *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
     </div>
   </div>
-  
-  
+  <div class="col-xs-12 col-sm-4">
+    <!-- відносний шлях без слеша -->
+    <!-- відносний шлях прикрипляється до актуальної адреси в браузері  -->
+    <!-- ./ === нічого перед силкою тобто це є вілносні шляхи -->
+    <!-- ../ перейти вверх по силках ../ -->
+    <!--<a routerLink="../servers">Reload</a>  -->
+    <!-- <button (click)="onReload()" class="btn btn-primary" routerLink="../servers">Reload page </button> -->
+
+
+    <!-- для чайлдів роутів -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
