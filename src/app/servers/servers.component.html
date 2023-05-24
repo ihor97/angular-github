@@ -15,7 +15,7 @@
       <!-- ./ === нічого перед силкою тобто це є вілносні шляхи -->
       <!-- ../ перейти вверх по силках ../ -->
       <!--<a routerLink="../servers">Reload</a>  -->
-      <a routerLink="../servers">Reload</a>
+      <button (click)="onReload()" class="btn btn-primary" routerLink="../servers">Reload page </button>
       <app-edit-server></app-edit-server>
       <hr>
       <app-server></app-server>
