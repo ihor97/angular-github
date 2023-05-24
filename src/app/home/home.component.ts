@@ -12,8 +12,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  onLoadServers(){
+  onLoadServers(id:number){
     // ми можемо задавати масив як у директиві routerLink
-    this.router.navigate(['/servers'])
+    // так в ts файлі можна створювати фрашменти і кверіпараметри
+    this.router.navigate(['/servers',id,'edit'],{queryParams:{allowEdit:1},fragment:'loading'})
   }
 }
