@@ -24,7 +24,8 @@ export class ServerComponent implements OnInit {
   }
   onEdit(){
     // відносний шлях
-      this.router.navigate(['edit'],{relativeTo:this.actRoute})
+    // queryParamsHandling:'preserve' зберігає параметри в силці
+      this.router.navigate(['edit'],{relativeTo:this.actRoute,queryParamsHandling:'preserve'})
   }
 
 }
