@@ -17,8 +17,9 @@ const appRoutes:Routes=[
       {path:':id/:name',component:UserComponent},
     ]},
     // створення дочірніх роутів і треба забирати servers/
-    // добавлення canActivate
-    {path:'servers',canActivate:[AuthGuard],component:ServersComponent,children:[
+    // добавлення canActivate по переходу по силці
+    // canActivateChild для переходу по дочірнім роутам
+    {path:'servers',canActivateChild:[AuthGuard],component:ServersComponent,children:[
       {path:':id',component:ServerComponent},
       {path:':id/edit',component:EditServerComponent},
       
