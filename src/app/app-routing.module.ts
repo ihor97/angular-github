@@ -38,7 +38,8 @@ const appRoutes:Routes=[
 @NgModule({
     imports:[
     // конфігурація модуля
-        RouterModule.forRoot(appRoutes)
+    // {useHash:true} для старих браузерів
+        RouterModule.forRoot(appRoutes,{useHash:true})
     ],
     // вказує що буде доступним ззовні цього модуля
     exports:[RouterModule]
