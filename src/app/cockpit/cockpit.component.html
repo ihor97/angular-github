@@ -5,13 +5,13 @@
       <!-- силка на елемент  -->
       <input type="text" class="form-control" #serverNameInput>
       <label>Server Content</label>
-      <input type="text" class="form-control" #serverContent>
+      <input type="text" class="form-control" #serverContentInput>
       <br>
       <button
         class="btn btn-primary"
-        (click)="onAddServer(serverNameInput,serverContent)">Add Server</button>
+        (click)="onAddServer(serverNameInput)">Add Server</button>
       <button
         class="btn btn-primary"
-        (click)="onAddBlueprint(serverNameInput,serverContent)">Add Server Blueprint</button>
+        (click)="onAddBlueprint(serverNameInput)">Add Server Blueprint</button>
     </div>
   </div>
