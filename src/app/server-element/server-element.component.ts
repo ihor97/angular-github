@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterContentInit, AfterViewChecked,
-   AfterViewInit, Component, DoCheck, ElementRef, Input, OnChanges, OnDestroy, 
+   AfterViewInit, Component, ContentChild, DoCheck, ElementRef, Input, OnChanges, OnDestroy, 
    OnInit,SimpleChanges,ViewChild,ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -18,8 +18,13 @@ export class ServerElementComponent implements OnInit,OnChanges,DoCheck,AfterCon
 @Input() name:string
 
 @ViewChild('heading') header:ElementRef
+// доступаємось до контенту що розташований в іншій компоненті
+@ContentChild('contentParagraph') paragraph:ElementRef
   constructor() {
     console.log('constructor called');
+    // нічого тоже не покаже
+    // console.log( ' Text content of paragraph'+ this.paragraph.nativeElement.textContent);
+    
     
    }
   //  єдиний хук який отримує параметри
@@ -30,7 +35,7 @@ export class ServerElementComponent implements OnInit,OnChanges,DoCheck,AfterCon
   ngOnInit(): void {
     console.log('ngOnit called');
     // нічого не виведе
-console.log('text contnent: '+this.header.nativeElement.textContent); 
+// console.log('text contnent: '+this.header.nativeElement.textContent); 
 
   }
 
@@ -41,6 +46,8 @@ ngDoCheck(): void {
 ngAfterContentInit(): void {
   // викликається тільки раз 
   console.log('ngAfterContentInit called');
+  console.log( ' Text content of paragraph '+ this.paragraph.nativeElement.textContent);
+
 
 }
 

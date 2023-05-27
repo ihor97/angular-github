@@ -10,7 +10,7 @@
             ">
                 <!-- все що ми кладемо в тег компоненти пропадає -->
                 <!-- це що ми вставили буде передано в компоненту в місці ng-content  -->
-                <p>
+                <p #contentParagraph>
                     <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
                     <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
                   </p>
