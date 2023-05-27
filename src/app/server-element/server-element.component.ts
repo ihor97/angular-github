@@ -1,4 +1,6 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit,SimpleChanges,ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked,
+   AfterViewInit, Component, DoCheck, ElementRef, Input, OnChanges, OnDestroy, 
+   OnInit,SimpleChanges,ViewChild,ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -14,6 +16,8 @@ export class ServerElementComponent implements OnInit,OnChanges,DoCheck,AfterCon
   // аліас - для перейменування властивості ззовні
 @Input('srvElement')  element:{type:string,name:string,content:string}
 @Input() name:string
+
+@ViewChild('heading') header:ElementRef
   constructor() {
     console.log('constructor called');
     
@@ -25,6 +29,8 @@ export class ServerElementComponent implements OnInit,OnChanges,DoCheck,AfterCon
 
   ngOnInit(): void {
     console.log('ngOnit called');
+    // нічого не виведе
+console.log('text contnent: '+this.header.nativeElement.textContent); 
 
   }
 
@@ -35,6 +41,7 @@ ngDoCheck(): void {
 ngAfterContentInit(): void {
   // викликається тільки раз 
   console.log('ngAfterContentInit called');
+
 }
 
 ngAfterContentChecked(): void {
@@ -48,6 +55,7 @@ ngAfterViewChecked(): void {
 }
 ngAfterViewInit(): void {
   console.log('ngAfterViewInit called');
+console.log('text contnent: '+this.header.nativeElement.textContent);
 
   
 }
