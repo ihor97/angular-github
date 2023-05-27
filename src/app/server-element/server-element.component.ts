@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ServerElementComponent implements OnInit {
   // так як поля компонети є доступні тільки всередині тому треба добавити декоратор
-@Input()  element:{type:string,name:string,content:string}
+  // аліас - для перейменування властивості ззовні
+@Input('srvElement')  element:{type:string,name:string,content:string}
   constructor() { }
 
   ngOnInit(): void {
