@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">{{!onlyOdd ? 'Only show odd numbers':'Only show even numbers'}}</button>
+            <br><br>
+            <ul class="list-group">
+                <div *ngIf="onlyOdd">
+                    <li *ngFor="let odd of oddNumbers" class="list-group-item">{{odd}}
+                    </li>
+                </div>
+                <div *ngIf="!onlyOdd">
+                    <li *ngFor="let even of evenNumbers" class="list-group-item">{{even}}
+                    </li>
+                </div>
+            </ul>
+
+        </div>
+    </div>
+</div>
