@@ -11,6 +11,7 @@
                     *ngFor="let odd of oddNumbers" class="list-group-item">{{odd}}
                     </li>
                 </div>
+
                 <div *ngIf="!onlyOdd">
                     <li 
                     [ngClass]="{odd:even%2!==0}"
@@ -18,6 +19,18 @@
                     *ngFor="let even of evenNumbers" class="list-group-item">{{even}}
                     </li>
                 </div>
+<!-- ng-template не рендериться але він визначає що в ньому має відрендеритися -->
+<!-- в таке трансформується структурна директива (зірочка пропадає) -->
+                <!-- <ng-template [ngIf]="!onlyOdd">
+                    <div>
+                        <li 
+                        [ngClass]="{odd:even%2!==0}"
+                        [ngStyle]="{backgroundColor:even%2!==0 ? 'yellow' :'transparent'}"
+                        *ngFor="let even of evenNumbers" class="list-group-item">{{even}}
+                        </li>
+                    </div>
+                </ng-template>
+                 -->
             </ul>
             <p appBasicHighlight>Style me with basic directive</p>
             <!-- якщо ми передаємо стрічку ми можемо опускати квадратні дужки -->
