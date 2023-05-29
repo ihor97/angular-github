@@ -26,6 +26,13 @@
             <!-- можна привязати аліас до інпута і вказати йому назву директиви  -->
             <p appBetterHighlight="red" defaultColor="yellow" >Style me with better directive</p>
 
+<!-- використання ngSwitch -->
+            <div [ngSwitch]="value">
+                <p *ngSwitchCase="5">val is 5</p>
+                <p *ngSwitchCase="10">val is 10</p>
+                <p *ngSwitchCase="100">val is 100</p>
+                <p *ngSwitchCase="'default'">val is default</p>
+            </div>
         </div>
     </div>
 </div>
