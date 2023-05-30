@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { LoggingService } from '../logging.service';
 
 @Component({
@@ -11,7 +11,11 @@ import { LoggingService } from '../logging.service';
 export class NewAccountComponent {
   @Output() accountAdded = new EventEmitter<{ name: string, status: string }>();
 // ангулар створює сам інстанс намне треба створювати вручну
-  constructor(private loggingService: LoggingService) { }
+// альтернативний варіант створення інстансу
+private loggingService?: LoggingService;
+  constructor() { 
+    this.loggingService=inject(LoggingService)
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountAdded.emit({
