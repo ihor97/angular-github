@@ -7,7 +7,12 @@ import { AccountsService } from '../accounts.service';
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.css'],
   // тут вказується як ангулару створити інстанс сервіса
-  providers:[LoggingService,AccountsService]
+
+  // так як ми створюємо ще один інстанс AccountsService то це буде 
+  // уже зовсім інший інстанс не той що в AppComponent і ми будемо пушити 
+  // нові акаунти в не той інстанс що треба так що вони рендеритися не будуть
+  // для того щоб це виправити треба забрати AccountsService з провайдерів
+  providers:[LoggingService]
 })
 export class NewAccountComponent {
 // ангулар створює сам інстанс намне треба створювати вручну
