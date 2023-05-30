@@ -7,7 +7,7 @@ import { AccountsService } from '../accounts.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
 
-  providers:[LoggingService]
+  providers:[]
 })
 export class AccountComponent {
   @Input() account: {name: string, status: string};
@@ -19,7 +19,6 @@ export class AccountComponent {
 // поки що нічого працювати не буде
   onSetTo(status: string) {
     this.accountsService.updateStatus(this.id,status)
-    this.loggingService.logStatusChange(status)
   }
 }
  

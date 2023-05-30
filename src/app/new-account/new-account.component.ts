@@ -12,7 +12,7 @@ import { AccountsService } from '../accounts.service';
   // уже зовсім інший інстанс не той що в AppComponent і ми будемо пушити 
   // нові акаунти в не той інстанс що треба так що вони рендеритися не будуть
   // для того щоб це виправити треба забрати AccountsService з провайдерів
-  providers:[LoggingService]
+  providers:[]
 })
 export class NewAccountComponent {
 // ангулар створює сам інстанс намне треба створювати вручну
@@ -27,6 +27,5 @@ private accountsService?:AccountsService;
   onCreateAccount(name: string, status: string) {
     this.accountsService.addAccount(name,status)
     
-    this.loggingService.logStatusChange(status)
   }
 }
