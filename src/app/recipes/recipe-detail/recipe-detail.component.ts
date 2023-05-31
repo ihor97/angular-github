@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -11,7 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe
   id:number
-  constructor(private actRoute: ActivatedRoute, private recipeService: RecipesService) { }
+  constructor(private actRoute: ActivatedRoute,private router:Router, private recipeService: RecipesService) { }
   ngOnInit(): void {
     // це можна не робити
     // const id = +this.actRoute.snapshot.params['id']
@@ -25,5 +25,10 @@ export class RecipeDetailComponent implements OnInit {
   }
   toShoppinglist() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients)
+  }
+  onEditRecipe(){
+    this.router.navigate(['edit'],{relativeTo:this.actRoute})
+    // другий варік
+    // this.router.navigate(['../',this.id,'edit'],{relativeTo:this.actRoute})
   }
 }
