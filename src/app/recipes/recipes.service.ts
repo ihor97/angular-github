@@ -25,4 +25,8 @@ export class RecipesService {
     this.shoppingService.addIngredients(ingredients)
 
   }
+  getOneRecipe(id:number){
+    // краще і тут робити копію
+    return this.recipes.slice()[id]
+  }
 }

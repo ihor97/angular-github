@@ -1,13 +1,9 @@
 <div class="row">
     <div class="col-md-5">
         <!-- більг елегантно ніж створювати лишній метод ми зразу присвоюємо в змінну -->
-        <app-recipe-list ></app-recipe-list>
+        <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-7">
-        <!--*ngIf="selectedItem else elseTemplate" перед  elseTemplate не треба ставити # -->
-        <app-recipe-detail [recipe]="selectedItem" *ngIf="selectedItem else elseTemplate"></app-recipe-detail>
-        <ng-template #elseTemplate>
-            <p>please select a Recipe</p>
-        </ng-template>
+        <router-outlet></router-outlet>
     </div>
-</div>
+</div>   

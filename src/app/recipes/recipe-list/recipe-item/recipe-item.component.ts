@@ -9,6 +9,7 @@ import { RecipesService } from '../../recipes.service';
 })
 export class RecipeItemComponent implements OnInit {
   // тут можна не вказувати дженерік з типом Recipe 
+  @Input() index:number
  @Input() recipe:Recipe
   constructor(private recipesService:RecipesService) { }
 
