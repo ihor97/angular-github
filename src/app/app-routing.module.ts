@@ -4,6 +4,7 @@ import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { NgModule } from "@angular/core";
 import { SelectRecipeComponent } from "./recipes/select-recipe/select-recipe.component";
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
+import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
 
 
 
@@ -15,8 +16,11 @@ const routes:Routes=[
         // замість того щоб редіректити можна поставити просто ''
         // {path:'',redirectTo:'choose-recipe',pathMatch:'full'},
         {path:'',component:SelectRecipeComponent},
-        // адреса не може починатися з /
-        {path:':id',component:RecipeDetailComponent}
+        // адреса не може починатися з слеша
+        // треба щоб роути без динамічних параметрів йшли першими тому що якщо вони будуть йти після значення в path буде парситися як динамічний параметр
+        {path:'new',component:RecipeEditComponent},
+        {path:':id',component:RecipeDetailComponent},
+        {path:':id/edit',component:RecipeEditComponent},
     ]},
     {path:'shopping-list',component:ShoppingListComponent}
 ]
