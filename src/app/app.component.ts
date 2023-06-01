@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -7,13 +7,19 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // другий варіант використовуючи ViewChild
+  @ViewChild('f') signupForm:NgForm
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
 
   // f:NgForm тип автоматично створеної форми ангуларом
-  onSubmit(f:NgForm){
-    console.log(f);
+  // onSubmit(f:NgForm){
+  //   console.log(f);
+    
+  // }
+  onSubmit(){
+    console.log(this.signupForm);
     
   }
 
