@@ -11,13 +11,11 @@ export class RecipeItemComponent implements OnInit {
   // тут можна не вказувати дженерік з типом Recipe 
   @Input() index:number
  @Input() recipe:Recipe
-  constructor(private recipesService:RecipesService) { }
+  constructor() { }
 
   ngOnInit(): void {
     
   }
-  onSelected(){
-    this.recipesService.getSelectedRecipe.emit(this.recipe)
-  }
+
 
 }

@@ -1,11 +1,11 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Recipe } from "./recipe.model";
 import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
+import { Subject } from "rxjs";
 @Injectable()
 export class RecipesService {
   // краще зробити private
-  getSelectedRecipe = new EventEmitter<Recipe>()
   private recipes: Recipe[] = [
     new Recipe('Tasty Schnitzel', 'a super tasty Schnitzel -just awesome', 'https://therecipecritic.com/wp-content/uploads/2020/10/pork-schnitzel-recipe-3.jpg',
       [new Ingredient('Meat', 1), new Ingredient('french fries', 20)]
