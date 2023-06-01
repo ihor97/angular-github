@@ -37,6 +37,11 @@
               <option value="teacher">Your first teacher?</option>
             </select>
           </div>
+          <div class="form-group">
+            <!-- можна юзати two way binding разом з ngModel -->
+            <textarea name="questionAnswer" [(ngModel)]="answer"  rows="3" ngModel></textarea>
+          </div>
+          <p>Your replay</p>
           <!-- виключаємо кнопку за допомогою обєкта форми -->
           <button
           [disabled]="!f.valid"
