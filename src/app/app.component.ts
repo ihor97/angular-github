@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,11 @@ export class AppComponent {
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
+
+  // f:NgForm тип автоматично створеної форми ангуларом
+  onSubmit(f:NgForm){
+    console.log(f);
+    
+  }
+
 }

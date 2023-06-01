@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <!-- ангулар автоматично створює обєкт формі коли він бачить тег form -->
-        <!-- ангулар не замічає автоматично інпути, треьа їх реєструвати додаючи ngModel і атрибут name -->
-        <!-- ngModel -директива -->
-        <form>
+<!-- івент форми ngSubmit, ми цей метод не додаємо в кнопку з типом submit-->
+<!-- достаємо доступ до форми через силку -->
+<!-- #f="ngForm" отримуємо доступ до обєкта форми -->
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
           <div id="user-data">
             <div class="form-group">
               <label for="username">Username</label>
