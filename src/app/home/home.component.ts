@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {  Subscription, interval } from "rxjs";
+import {  Subscription, Observable } from "rxjs";
 import { count } from 'rxjs-compat/operator/count';
 @Component({
   selector: 'app-home',
@@ -12,14 +12,23 @@ export class HomeComponent implements OnInit,OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    // package.json -утримує усі залежності
-    // кожну секунду буде створений івент
-    // 
-   this.firstObsSubscription= interval(1000).subscribe(
-      count=>{
-        console.log(count);
+    // створення кастомного обзервебл, таке саме як інтервал в попередньому варіанті
+    const customIntervalObservable=Observable.create(
+      // observer частина яка зацікавлена в обновленні інформації
+      observer=>{
+        let count=0
+        setInterval(()=>{
+          observer.next(count)
+          count++
+        },1000)
       }
+
     )
+
+   this.firstObsSubscription= customIntervalObservable.subscribe(data=>{
+      console.log(data);
+    })
+
   }
 ngOnDestroy(): void {
   // відписуємся від підписки
