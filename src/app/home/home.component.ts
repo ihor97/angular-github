@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit,OnDestroy {
     )
 
    this.firstObsSubscription= customIntervalObservable.subscribe(
+    // колбеки які ми описуємо rxjs склеює до купи і закидує observer в Observable і всередині Observable буде взаєможіяти з observer
     // з колбека ми отримуємо дані
     data=>{
       console.log(data);
