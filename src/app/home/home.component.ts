@@ -12,26 +12,48 @@ export class HomeComponent implements OnInit,OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    // створення кастомного обзервебл, таке саме як інтервал в попередньому варіанті
     const customIntervalObservable=Observable.create(
-      // observer частина яка зацікавлена в обновленні інформації
       observer=>{
         let count=0
         setInterval(()=>{
           observer.next(count)
+          // якщо ми поставимо 5 то третій колюек не спрацює тому що викинулася помилка
+          if(count==5){
+            // закінчення обзервебл
+            observer.complete()
+          }
+          if(count>3){
+            // викидання помилки
+            observer.error(
+              new Error('count is greater 3')
+            )
+          }
           count++
         },1000)
       }
 
     )
 
-   this.firstObsSubscription= customIntervalObservable.subscribe(data=>{
+   this.firstObsSubscription= customIntervalObservable.subscribe(
+    // з колбека ми отримуємо дані
+    data=>{
       console.log(data);
-    })
+    }
+    // другий параметр для помилок
+    ,
+    error=>{
+      console.log(error);
+      alert(error.message)
+    }
+    ,
+    // ф-я яка викликається при завершенні обзервебл
+    ()=>{
+      console.log('Completed');
+    }
+    )
 
   }
 ngOnDestroy(): void {
-  // відписуємся від підписки
   this.firstObsSubscription.unsubscribe()
 }
 
