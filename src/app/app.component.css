@@ -1,4 +1,9 @@
 .container {
     margin-top: 30px;
   }
+
+  /* додаємо стиль до невалідних форм */
+  input.ng-invalid.ng-touched {
+    border:1px solid red
+  }
   
