@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Observable дає нам змогу відслідкувати зміни 
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
     });
