@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,10 @@ export class AppComponent implements OnInit {
   signupForm:FormGroup
 ngOnInit(): void {
   this.signupForm=new FormGroup({
-    // робимо наші інпути
-    'username':new FormControl(null),
-    'email':new FormControl(null),
+// добавляємо валідатори
+    'username':new FormControl(null, Validators.required),
+    // масив валідаторів
+    'email':new FormControl(null,[Validators.required,Validators.email]),
     // тут ми вказуємо значення інпута
     'gender':new FormControl('male')
   })
