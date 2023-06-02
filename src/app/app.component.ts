@@ -19,4 +19,9 @@ ngOnInit(): void {
     'gender':new FormControl('male')
   })
 }
+onSubmit(){
+  // так як ми створили форму ми зразу можемо отримати доступ до неї
+  console.log(this.signupForm);
+  
+}
 }
