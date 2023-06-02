@@ -7,6 +7,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  forbiddenUserName=['Chris','Anna']
   genders = ['male', 'female'];
   // тип реактивної форми
   signupForm: FormGroup
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
       // створюмо групу
       'userData': new FormGroup({
         // добавляємо валідатори
-        'username': new FormControl(null, Validators.required),
+        // біндимо
+        'username': new FormControl(null, [Validators.required,this.forbiddenNames.bind(this)]),
         // масив валідаторів
         'email': new FormControl(null, [Validators.required, Validators.email]),
         // тут ми вказуємо значення інпута
@@ -37,5 +39,12 @@ export class AppComponent implements OnInit {
   }
   getControls() {
     return (<FormArray>this.signupForm.get('hobbies')).controls;
+  }
+  forbiddenNames(control:FormControl):{[s:string]:boolean}{
+    // idexof вертає -1 але -1 це є true так що треба добавити перевірку
+     if(this.forbiddenUserName.indexOf(control.value)!==-1){
+      return {'nameIsForbidden':true}
+     }
+     return null
   }
 }
