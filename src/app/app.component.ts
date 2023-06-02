@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
         // біндимо
         'username': new FormControl(null, [Validators.required,this.forbiddenNames.bind(this)]),
         // масив валідаторів
-        'email': new FormControl(null, [Validators.required, Validators.email]),
+        'email': new FormControl(null, [Validators.required, Validators.email],this.forbiddenEmails),
         // тут ми вказуємо значення інпута
       }),
 
@@ -46,5 +47,20 @@ export class AppComponent implements OnInit {
       return {'nameIsForbidden':true}
      }
      return null
+  }
+
+  forbiddenEmails(control:FormControl):Promise<any>| Observable<any>{
+    const promise=new Promise<any>((res,rej)=>{
+      setTimeout(() => {
+        if(control.value==='test@test.com'){
+          res({
+            'emailIsForbidden':true
+          })
+        }else{
+          res(null)
+        }
+      }, 2000);
+    })
+    return promise
   }
 }
