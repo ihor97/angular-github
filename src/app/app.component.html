@@ -31,7 +31,16 @@
           <!-- можна юзати two way binding разом з ngModel -->
           <textarea name="questionAnswer" [(ngModel)]="answer" rows="3" ngModel></textarea>
         </div>
-        <p>Your replay</p>
+        <p>Your replay: {{answer}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+            <label >
+              <input type="radio"
+              name="gender"
+              ngModel [value]="gender"
+              required="">
+              {{gender}}
+            </label>
+        </div>
         <!-- виключаємо кнопку за допомогою обєкта форми -->
         <button [disabled]="!f.valid" class="btn btn-primary" type="submit">Submit</button>
       </form>
