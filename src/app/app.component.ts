@@ -12,11 +12,15 @@ export class AppComponent implements OnInit {
   signupForm:FormGroup
 ngOnInit(): void {
   this.signupForm=new FormGroup({
-// добавляємо валідатори
+    // створюмо групу
+    'userData':new FormGroup({
+      // добавляємо валідатори
     'username':new FormControl(null, Validators.required),
     // масив валідаторів
     'email':new FormControl(null,[Validators.required,Validators.email]),
     // тут ми вказуємо значення інпута
+    }),
+
     'gender':new FormControl('male')
   })
 }
