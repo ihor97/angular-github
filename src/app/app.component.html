@@ -1,50 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!-- вказуємо ангулару щоб він взяв нашу форму а не створював її -->
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <!-- групуємо інпути -->
-        <div formGroupName="userData">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <!--signupForm.get('username') отримуємо доступ до інпута  -->
-            <input type="text" id="username" formControlName="username" class="form-control">
-           
-            <span *ngIf="!signupForm.get('userData.username').valid&&signupForm.get('userData.username').touched"
-              class="help-block">
-              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid</span>
-              <span *ngIf="signupForm.get('userData.username').errors['required']">required!</span>
-              </span>
-          </div>
-          <div class="form-group">
-            <label for="email">email</label>
-            <input type="text" formControlName="email" id="email" class="form-control">
-            <span *ngIf="!signupForm.get('userData.email').valid&&signupForm.get('userData.email').touched"
-              class="help-block">invalid!</span>
+      <!--
+          Create a Form with the following Controls and Validators
+          1) Project Name (should not be empty)
+          2) Mail (should not be a empty and a valid email)
+          3) Project Status Dropdown, with three values: 'Stable', 'Critical', 'Finished'
+          4) Submit Button
 
-          </div>
+          Add your own Validator which doesn't allow "Test" as a Project Name
 
+          Also implement that Validator as an async Validator (replace the other one)
 
-        </div>
-        <div class="radio" *ngFor="let gender of genders">
-          <label>
-            <input type="radio" formControlName="gender" [value]="gender">{{ gender }}
-          </label>
-        </div>
-        <!-- підєднуємо опшини -->
-        <!-- ти забув вказати імя 'hobbies'!!!!!!! -->
-        <div formArrayName="hobbies">
-          <h4>Hobbies</h4>
-          <button class="btn btn-default" type="button" (click)="onAddHobbys()">Add hobby</button>
-          <!-- сюди навіть можна запхати виклик методу -->
-          <div  class="form-group" *ngFor="let hobby of getControls();let i=index">
-            <input type="text" class="form-control" [formControlName]="i">
-          </div>
-        </div>
-        <span *ngIf="!signupForm.valid&&signupForm.touched" class="help-block">invalid!</span>
-
-        <button class="btn btn-primary" type="submit">Submit</button>
-      </form>
+          Upon submitting the form, simply print the value to the console
+      -->
     </div>
   </div>
 </div>
