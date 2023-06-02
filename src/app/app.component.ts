@@ -41,6 +41,21 @@ export class AppComponent implements OnInit {
         
       }
     )
+// задаємо значення усієї форми
+    // this.signupForm.setValue({
+    //   'userData':{
+    //     'username':'max',
+    //     'email':'stakem@eec.gmail.com'
+    //   },
+    //   'gender':'male',
+    //   'hobbies':[]
+    // })
+// задаємо якесь одне значення
+    this.signupForm.patchValue({
+      'userData':{
+        'username':'hahha'
+      }
+    })
   }
   onAddHobbys() {
     const control=new FormControl(null,Validators.required);
@@ -50,6 +65,8 @@ export class AppComponent implements OnInit {
   onSubmit() {
     // так як ми створили форму ми зразу можемо отримати доступ до неї
     console.log(this.signupForm);
+    // можна теж заресетити значеннями якими ми хочемо
+    this.signupForm.reset()
 
   }
   getControls() {
