@@ -14,6 +14,25 @@ export class AppComponent {
   genders=['male','female']
   suggestUserName() {
     const suggestedName = 'Superuser';
+    // через метод setValue можна задавати значення форми
+    // this.signupForm.setValue({
+    //   userData:{
+    //     username:suggestedName,
+    //     email:''
+    //   },
+    //   secret:'pet',
+    //   questionAnswer:'',
+    //   gender:'male'
+    // })
+// цей підхід не переписує всю форму а змінює тільки те шо ми хочемо
+    this.signupForm.form.patchValue(
+      {
+        userData:{
+          username:suggestedName
+        }
+      }
+    )
+
   }
 
   // f:NgForm тип автоматично створеної форми ангуларом
