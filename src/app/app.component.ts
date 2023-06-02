@@ -27,6 +27,20 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('male'),
       'hobbies': new FormArray([])
     })
+    // зміна параметрів в формі
+    // this.signupForm.valueChanges.subscribe(
+    //   (value)=>{
+    //     console.log(value);
+        
+    //   }
+    // )
+    // показує зміну статусів
+    this.signupForm.statusChanges.subscribe(
+      (value)=>{
+        console.log(value);
+        
+      }
+    )
   }
   onAddHobbys() {
     const control=new FormControl(null,Validators.required);
