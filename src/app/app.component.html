@@ -8,33 +8,34 @@
           <div class="form-group">
             <label for="username">Username</label>
             <!--signupForm.get('username') отримуємо доступ до інпута  -->
-            <input
-              type="text"
-              id="username"
-              formControlName="username"
-              class="form-control">
-              <span *ngIf="!signupForm.get('userData.username').valid&&signupForm.get('userData.username').touched" class="help-block">invalid!</span>
+            <input type="text" id="username" formControlName="username" class="form-control">
+            <span *ngIf="!signupForm.get('userData.username').valid&&signupForm.get('userData.username').touched"
+              class="help-block">invalid!</span>
           </div>
           <div class="form-group">
             <label for="email">email</label>
-            <input
-              type="text"
-              formControlName="email"
-              id="email"
-              class="form-control">
-              <span *ngIf="!signupForm.get('userData.email').valid&&signupForm.get('userData.email').touched" class="help-block">invalid!</span>
-  
+            <input type="text" formControlName="email" id="email" class="form-control">
+            <span *ngIf="!signupForm.get('userData.email').valid&&signupForm.get('userData.email').touched"
+              class="help-block">invalid!</span>
+
           </div>
 
 
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
-            <input
-              type="radio"
-              formControlName="gender"
-              [value]="gender">{{ gender }}
+            <input type="radio" formControlName="gender" [value]="gender">{{ gender }}
           </label>
+        </div>
+        <!-- підєднуємо опшини -->
+        <!-- ти забув вказати імя 'hobbies'!!!!!!! -->
+        <div formArrayName="hobbies">
+          <h4>Hobbies</h4>
+          <button class="btn btn-default" type="button" (click)="onAddHobbys()">Add hobby</button>
+          <!-- сюди навіть можна запхати виклик методу -->
+          <div  class="form-group" *ngFor="let hobby of getControls();let i=index">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
         </div>
         <span *ngIf="!signupForm.valid&&signupForm.touched" class="help-block">invalid!</span>
 
