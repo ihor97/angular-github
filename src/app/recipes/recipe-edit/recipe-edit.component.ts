@@ -100,4 +100,7 @@ export class RecipeEditComponent implements OnInit {
   exitEdit(){
     this.router.navigate(['../'],{relativeTo:this.actRoute})
   }
+  removeIngredient(index:number){
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index)
+  }
 }
