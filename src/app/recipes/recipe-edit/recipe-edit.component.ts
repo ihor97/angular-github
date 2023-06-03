@@ -9,6 +9,9 @@ import { RecipesService } from '../recipes.service';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
+  get controls() { // a getter!
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
   recipeForm: FormGroup
   id: number
   editMode = false
@@ -35,9 +38,18 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = ''
     let recipeImagePath = ''
     let recipeDescription = ''
+ 
+    let recipeIngredients=new FormArray([])
     if (this.editMode) {
       const recipe = this.recipeService.getOneRecipe(this.id)
-      
+      if(recipe['ingredients']){
+        for (const ingr of recipe.ingredients) {
+          recipeIngredients.push(new FormGroup({
+            'name':new FormControl(ingr.name),
+            'amount':new FormControl(ingr.amount)
+          }))
+        }
+      }
       recipeName = recipe.name
       recipeImagePath = recipe.imagePath
       recipeDescription = recipe.description
@@ -45,6 +57,7 @@ export class RecipeEditComponent implements OnInit {
         name: new FormControl(recipeName),
         imagePath: new FormControl(recipeImagePath),
         description: new FormControl(recipeDescription),
+        ingredients:recipeIngredients
 
       })
 
@@ -53,7 +66,7 @@ export class RecipeEditComponent implements OnInit {
       name: new FormControl(recipeName),
       imagePath: new FormControl(recipeImagePath),
       description: new FormControl(recipeDescription),
-
+      ingredients:recipeIngredients
     })
 
   }
