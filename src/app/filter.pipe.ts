@@ -1,7 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  // з цією властивістю дані будуть оновлюватися кожного разу коли ми будемо щось міняти
+  // це коштує багато ресурсів тому по замовчуванню воно виключене
+  pure:false
 })
 export class FilterPipe implements PipeTransform {
 
