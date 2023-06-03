@@ -33,6 +33,11 @@ export class AppComponent {
     }
   ];
   filteredStatus=''
+  appStatus =new Promise((res,rej)=>{
+    setTimeout(() => {
+        res('stable')
+    }, 1000);
+  })
   getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
     return {
       'list-group-item-success': server.status === 'stable',
