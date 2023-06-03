@@ -12,7 +12,9 @@
             </span>
             <strong>{{ server.name }}</strong> |
              {{ server.instanceType | uppercase }} |
-              {{ server.started | date}}
+              
+              <!-- {{ server.started | date:"fullDate":- сюди можна запихати інші параметри}} -->
+              {{ server.started | date:"fullDate"}}
           </li>
         </ul>
       </div>
