@@ -16,10 +16,13 @@ recipes:Recipe[]
     this.recipes=this.recipesService.getRecipes()
 
     this.recipesService.recipeChanged.subscribe(
+
       (recipes:Recipe[])=>{
         this.recipes=recipes
       }
     )
+    console.log(this.recipes);
+    
   }
   onNewRecipe(){
     this.router.navigate(['new'],{relativeTo:this.actRoute})

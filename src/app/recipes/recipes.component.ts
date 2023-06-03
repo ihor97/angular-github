@@ -5,7 +5,7 @@ import { RecipesService } from './recipes.service';
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers:[RecipesService]
+  // ти завтикав що провайдери були в корневій компоненті для рецептів
 })
 export class RecipesComponent implements OnInit {
 
