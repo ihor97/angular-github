@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { CustomValidators } from './custom-valodators';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,10 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.signupForm=new FormGroup({
       data:new FormGroup({
-        project:new FormControl(null,[Validators.required],this.asyncValidator),
+        project:new FormControl(null,[Validators.required,CustomValidators.invalidProjectName.bind(this)],CustomValidators.asyncInvalidProjectName.bind(this)),
         email:new FormControl(null,[Validators.email,Validators.required])
       }),
-      status:new FormControl(null)
+      status:new FormControl('Critical')
     })
     
   }
