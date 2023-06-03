@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipesService } from '../recipes.service';
-import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,7 +16,8 @@ export class RecipeEditComponent implements OnInit {
   id: number
   editMode = false
   constructor(private actRoute: ActivatedRoute,
-    private recipeService: RecipesService
+    private recipeService: RecipesService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +45,9 @@ export class RecipeEditComponent implements OnInit {
     }else{
       this.recipeService.addRecipe(this.recipeForm.value)
     }
+    // this.router.navigate(['recipes']) 
+    // так краще додати цей метод сюди ніж писати знову навігацію
+    this.exitEdit()
 
   }
   private initForm() {
@@ -93,5 +96,8 @@ export class RecipeEditComponent implements OnInit {
           Validators.pattern(/^[1-9]+[0-9]*$/)])
       })
     )
+  }
+  exitEdit(){
+    this.router.navigate(['../'],{relativeTo:this.actRoute})
   }
 }
