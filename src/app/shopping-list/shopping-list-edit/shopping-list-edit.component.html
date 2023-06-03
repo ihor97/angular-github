@@ -4,16 +4,19 @@
             <div class="row">
                 <div class="col-sm-5 form-group">
                     <label for="name" >Name</label>
-                    <input ngModel name="name" type="text"  id="name" class="form-control">
+                    <input ngModel name="name" type="text" required id="name" class="form-control">
                 </div>
+                <!-- вставляємо регулярку -->
                 <div class="col-sm-2">
                     <label for="amount">Amount</label>
-                    <input ngModel name="amount" type="text" id="amount" class="form-control">
+                    <input
+                    pattern="^[1-9]+[0-9]*$"
+                    ngModel name="amount" required type="text" id="amount" class="form-control">
 
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-success" type="submit" >Add</button>
+                        <button class="btn btn-success" [disabled]="f.invalid" type="submit" >Add</button>
                         <button class="btn btn-danger" type="button">Delete</button>
                         <button class="btn btn-primary" type="button">Clear</button>
                     </div>
