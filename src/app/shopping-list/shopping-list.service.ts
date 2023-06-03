@@ -28,5 +28,12 @@ export class ShoppingListService {
         this.ingredients[id].name=name
         this.ingredients[id].amount=amount
     }
+    getOneIngredient(id:number):Ingredient{
+        return this.ingredients[id]
+      }
+      updateIngredient(index:number,newIngredient:Ingredient){
+        this.ingredients[index]=newIngredient
+        this.addNewIngredient.next(this.ingredients.slice())
+      }
 
 }
