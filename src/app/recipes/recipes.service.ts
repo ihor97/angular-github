@@ -5,6 +5,7 @@ import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs";
 @Injectable()
 export class RecipesService {
+  recipeChanged=new Subject<Recipe[]>()
   // краще зробити private
   private recipes: Recipe[] = [
     new Recipe('Tasty Schnitzel', 'a super tasty Schnitzel -just awesome', 'https://therecipecritic.com/wp-content/uploads/2020/10/pork-schnitzel-recipe-3.jpg',
@@ -19,14 +20,26 @@ export class RecipesService {
   constructor(private shoppingService: ShoppingListService) { }
   getRecipes() {
     // повертаємо копію 
+
     return this.recipes.slice()
   }
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.shoppingService.addIngredients(ingredients)
+    this.recipeChanged.next(this.recipes.slice())
 
   }
   getOneRecipe(id:number){
     // краще і тут робити копію
     return this.recipes.slice()[id]
+  }
+  addRecipe(recipe:Recipe){
+    this.recipes.push(recipe)
+    this.recipeChanged.next(this.recipes.slice())
+
+  }
+  updateRecipe(index:number,newRecipe:Recipe){
+    this.recipes[index]=newRecipe
+    this.recipeChanged.next(this.recipes.slice())
+
   }
 }
