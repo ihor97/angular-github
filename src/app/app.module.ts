@@ -6,16 +6,24 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth.-interceptor.service';
+import { LoggingInterceptorService } from './logging-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule],
   // провайдимо інтерцептор
   // HTTP_INTERCEPTORS токен
-  providers: [{ 
+  // є важливий порядок інтерцепторів
+  providers: [{
     provide: HTTP_INTERCEPTORS,
-     useClass: AuthInterceptorService, 
-     multi: true }],
+    useClass: AuthInterceptorService,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoggingInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
