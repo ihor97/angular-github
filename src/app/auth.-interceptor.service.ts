@@ -6,7 +6,12 @@ export class AuthInterceptorService implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // if(req.url) якщо ми не хочмо робити запит по якісь урлі ми можемо його перервати
         console.log('Request on its way');
+        console.log(req.url);
+        
         // продовжуємо наш запит
-        return next.handle(req)
+        // реквест не можна модифікувати  якщо ми хочемо модифікувати то треба робити новий
+        const modifiedRequest=req.clone({headers:req.headers.append('Auth','xyz')})
+
+        return next.handle(modifiedRequest)
     }
 }
