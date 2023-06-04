@@ -50,7 +50,8 @@ export class PostService {
             }),
             // добавлення квері параметрів
             // params: new HttpParams().set('print','pretty')
-            params: searchParams
+            params: searchParams,
+            responseType:'json'
             
           })
           
@@ -75,7 +76,10 @@ export class PostService {
     }
     deletePosts(){
        return this.http.delete('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
-       {observe:'events'}).pipe(
+       {observe:'events',
+    //    формат відповіді
+        responseType:'json'
+    }).pipe(
         tap(
             event=>{
                 console.log(event);
