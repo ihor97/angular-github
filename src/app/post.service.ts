@@ -2,12 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
 import {  map} from "rxjs/operators";
+import { Subject } from "rxjs";
 
 
 @Injectable(
     { providedIn: 'root'}
 )
 export class PostService {
+    error=new Subject<string>()
     
     constructor(private http:HttpClient){}
     createAndStorePost(title:string,content:string){
@@ -19,6 +21,10 @@ export class PostService {
           ).subscribe(
             res => {
               console.log(res);
+            },
+            error=>{
+                // замість того щоб вертати Observable  ми можемо споавстити про помилки через Subject
+                this.error.next(error.message)
             }
           )
     }
