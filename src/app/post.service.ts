@@ -15,6 +15,7 @@ export class PostService {
         this.http.post<{[key:string]:Post}>(
             'https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
             postData
+            // коли компонеті не важливий статус post запиту то можна не вертати Observable
           ).subscribe(
             res => {
               console.log(res);
@@ -22,7 +23,9 @@ export class PostService {
           )
     }
     fetchPosts(){
-        this.http
+        // замість того щоб робити Subject для сповіщення приходу даних 
+        // ми вертаємо Observable
+       return this.http
         // кращий варіант через дженерік
           .get<{[key:string]:Post}>('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
           // трансформуємо наші дані які бужемо отримувати
@@ -39,11 +42,7 @@ export class PostService {
               return postsArray
             }
           ))
-          .subscribe(
-            posts => {
-                
-            }
-          )
+          
     }
 
 }
