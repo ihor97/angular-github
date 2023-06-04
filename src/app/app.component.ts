@@ -12,6 +12,7 @@ import { PostService } from './post.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false
+  error=null
   // інжектимо клієнт 
   constructor(private http: HttpClient, private postService: PostService) { }
 
@@ -21,6 +22,10 @@ export class AppComponent implements OnInit {
       (posts: Post[]) => {
         this.loadedPosts = posts
         this.isFetching = false
+      },
+      // другий аргумент приймає колбек з обробкою помилок
+      error=>{
+        this.error=error.error.error
       }
     )
 
@@ -35,11 +40,13 @@ export class AppComponent implements OnInit {
   onFetchPosts() {
     // Send Http request
     this.isFetching = true
+
     this.postService.fetchPosts().subscribe(
       (posts: Post[]) => {
         this.loadedPosts = posts
         this.isFetching = false
-      }
+      },
+     
     )
 
   }
