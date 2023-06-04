@@ -10,6 +10,7 @@ import { Post } from './post.model';
 })
 export class AppComponent implements OnInit {
   loadedPosts:Post[] = [];
+  isFetching=false
   // інжектимо клієнт 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit {
     // Send Http request
   }
   private fetchPosts() {
+    this.isFetching=true
     this.http
     // кращий варіант через дженерік
       .get<{[key:string]:Post}>('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
@@ -61,6 +63,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         posts => {
           this.loadedPosts=posts
+          this.isFetching=false
         }
       )
   }
