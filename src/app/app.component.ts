@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {  map} from "rxjs/operators";
+import { Post } from './post.model';
 
 @Component({
   selector: 'app-root',
@@ -44,8 +45,9 @@ export class AppComponent implements OnInit {
       .get('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
       // трансформуємо наші дані які бужемо отримувати
       .pipe(map(
-        (response)=>{
-          const postsArray=[]
+        // робимо тип для даних які ми приймаємо
+        (response:{[key:string]:Post})=>{
+          const postsArray:Post[]=[]
           for (const key in response) {
             if(response.hasOwnProperty(key)){
               // додаємо ще  айді до нашого обєкту з даними
