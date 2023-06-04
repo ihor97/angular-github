@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
 import { map,catchError } from "rxjs/operators";
@@ -32,13 +32,20 @@ export class PostService {
     fetchPosts(){
         // замість того щоб робити Subject для сповіщення приходу даних 
         // ми вертаємо Observable
+        let searchParams=new HttpParams()
+        // обєкт з параметрами перезаписуєтсья
+        searchParams=searchParams.append('print','pretty')
+        searchParams=searchParams.append('custom','key')
        return this.http
         // кращий варіант через дженерік
           .get<{[key:string]:Post}>('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
           {
             headers:new HttpHeaders({
                 "Custom-Header":'hello'
-            })
+            }),
+            // добавлення квері параметрів
+            // params: new HttpParams().set('print','pretty')
+            params: searchParams
             
           })
           
