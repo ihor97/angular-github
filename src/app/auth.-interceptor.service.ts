@@ -1,5 +1,6 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 export class AuthInterceptorService implements HttpInterceptor{
     // запускається перед тим як йде запит
@@ -12,6 +13,18 @@ export class AuthInterceptorService implements HttpInterceptor{
         // реквест не можна модифікувати  якщо ми хочемо модифікувати то треба робити новий
         const modifiedRequest=req.clone({headers:req.headers.append('Auth','xyz')})
 
-        return next.handle(modifiedRequest)
+        // можна також модифікувати відповідь
+        return next.handle(modifiedRequest).pipe(
+            tap(event=>{
+                console.log(event);
+                
+                if(event.type===HttpEventType.Response){
+                    console.log('response arrived');
+                    console.log(event.body);
+                    
+                    
+                }
+            })
+        )
     }
 }
