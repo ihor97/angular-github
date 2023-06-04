@@ -48,10 +48,10 @@ export class PostService {
               }
               return postsArray
             }
-          )),
-          catchError(errorMes=>{
+          ),catchError(errorMes=>{
            return throwError(errorMes)
-          })
+          }))
+          
           
     }
     deletePosts(){

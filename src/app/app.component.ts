@@ -31,6 +31,7 @@ export class AppComponent implements OnInit,OnDestroy {
       },
       // другий аргумент приймає колбек з обробкою помилок
       error=>{
+        this.isFetching = false
         this.error=error.error.error
       }
     )
@@ -54,6 +55,8 @@ export class AppComponent implements OnInit,OnDestroy {
       },
       error=>{
         this.error=error.error.error
+        this.isFetching = false
+
       }
     )
 
@@ -69,5 +72,7 @@ export class AppComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.errorSub.unsubscribe()
   }
-
+  onHandleError(){
+    this.error=null
+  }
 }
