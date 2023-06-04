@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {  map} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   loadedPosts = [];
-// інжектимо клієнт 
-  constructor(private http: HttpClient) {}
+  // інжектимо клієнт 
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.fetchPosts()
@@ -20,9 +21,9 @@ export class AppComponent implements OnInit {
     console.log(postData);
     this.http.post(
       'https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
-    postData
+      postData
     ).subscribe(
-      res=>{
+      res => {
         console.log(res);
       }
     )
@@ -38,12 +39,27 @@ export class AppComponent implements OnInit {
   onClearPosts() {
     // Send Http request
   }
-  private fetchPosts(){
-    this.http.get('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json').subscribe(
-      posts=>{
-        console.log(posts);
-        
-      }
-    )
+  private fetchPosts() {
+    this.http
+      .get('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
+      // трансформуємо наші дані які бужемо отримувати
+      .pipe(map(
+        (response)=>{
+          const postsArray=[]
+          for (const key in response) {
+            if(response.hasOwnProperty(key)){
+              // додаємо ще  айді до нашого обєкту з даними
+              postsArray.push({...response[key],id:key})
+            }
+          }
+          return postsArray
+        }
+      ))
+      .subscribe(
+        posts => {
+          console.log(posts);
+
+        }
+      )
   }
 }
