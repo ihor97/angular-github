@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
-import { map,catchError } from "rxjs/operators";
+// tap дозволяє виконати якийсь код без змніни відповіді
+import { map,catchError,tap } from "rxjs/operators";
 // throwError це є Observable який обгортає нашу помилку
 import { Subject, throwError } from "rxjs";
 
@@ -17,7 +18,11 @@ export class PostService {
         const postData:Post={title,content}
         this.http.post<{[key:string]:Post}>(
             'https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
-            postData
+            postData,
+            {
+                // 'body' означє що ми отримуємо тільки самі дані без метаданих
+                observe:'response'
+            }
             // коли компонеті не важливий статус post запиту то можна не вертати Observable
           ).subscribe(
             res => {
@@ -69,7 +74,22 @@ export class PostService {
           
     }
     deletePosts(){
-       return this.http.delete('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
+       return this.http.delete('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
+       {observe:'events'}).pipe(
+        tap(
+            event=>{
+                console.log(event);
+                // HttpEventType - єнам з кодами івентів
+                if(event.type===HttpEventType.Sent){
+                    // тут можна сказати шо запит пішов і можна обновити UI
+                }
+                if(event.type===HttpEventType.Response){
+                    console.log(event.body);
+                    
+                }
+            }
+        )
+       )
             
     }
 
