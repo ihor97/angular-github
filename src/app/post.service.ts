@@ -44,5 +44,9 @@ export class PostService {
           ))
           
     }
+    deletePosts(){
+       return this.http.delete('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
+            
+    }
 
 }
