@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
   servers = [
     {
       instanceType: 'medium',
-      name: 'Production Server',
+      name: 'Production',
       status: 'stable',
       started: new Date(15, 1, 2017)
     },
@@ -32,12 +37,7 @@ export class AppComponent {
       started: new Date(15, 1, 2017)
     }
   ];
-  filteredStatus=''
-  appStatus =new Promise((res,rej)=>{
-    setTimeout(() => {
-        res('stable')
-    }, 1000);
-  })
+  filteredStatus = '';
   getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
     return {
       'list-group-item-success': server.status === 'stable',
@@ -45,14 +45,12 @@ export class AppComponent {
       'list-group-item-danger': server.status === 'critical'
     };
   }
-  onAddServer(){
+  onAddServer() {
     this.servers.push({
-      instanceType:'small',
-      name:'New Server',
-      status:'stable',
+      instanceType: 'small',
+      name: 'New Server',
+      status: 'stable',
       started: new Date(15, 1, 2017)
-
-
-    })
+    });
   }
 }
