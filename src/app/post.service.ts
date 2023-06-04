@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
-import {  map} from "rxjs/operators";
-import { Subject } from "rxjs";
+import { map,catchError } from "rxjs/operators";
+// throwError це є Observable який обгортає нашу помилку
+import { Subject, throwError } from "rxjs";
 
 
 @Injectable(
@@ -47,7 +48,10 @@ export class PostService {
               }
               return postsArray
             }
-          ))
+          )),
+          catchError(errorMes=>{
+           return throwError(errorMes)
+          })
           
     }
     deletePosts(){
