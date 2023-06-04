@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
     console.log(postData);
-    this.http.post(
+    this.http.post<{[key:string]:Post}>(
       'https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json',
       postData
     ).subscribe(
@@ -42,11 +42,12 @@ export class AppComponent implements OnInit {
   }
   private fetchPosts() {
     this.http
-      .get('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
+    // кращий варіант через дженерік
+      .get<{[key:string]:Post}>('https://ng-udemy-80a0b-default-rtdb.firebaseio.com/posts.json')
       // трансформуємо наші дані які бужемо отримувати
       .pipe(map(
         // робимо тип для даних які ми приймаємо
-        (response:{[key:string]:Post})=>{
+        (response)=>{
           const postsArray:Post[]=[]
           for (const key in response) {
             if(response.hasOwnProperty(key)){
