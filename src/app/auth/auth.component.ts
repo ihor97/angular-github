@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { AuthService } from "./auth.service";
+import { AuthResponseData, AuthService } from "./auth.service";
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'app-auth',
@@ -23,30 +24,33 @@ export class AuthComponent {
         }
         const email = form.value.email
         const password = form.value.password
+// для того щоб не повторятися ми робимо змінну куди будемо зберігати результат запросів
+    let authObs:Observable<AuthResponseData>
+
         this.isLoading = true
         // якщо ми залоговані 
         if (this.isLoginMode) {
-            //....
+            authObs=  this.authService.login(email,password)
         } else {
-            this.authService.signUp(email, password).subscribe(
-                resData => {
-                    console.log(resData);
-                    this.isLoading = false
-
-
-                }, errorRes => {
-                    // errorRes тут ми уже отримуємо дані що пройшли через pipe
-                    // компонента має більше концентруватися на обновленні UI а не на обробці помилок
-                    console.log(errorRes);
-                    this.error = errorRes
-                    this.isLoading = false
-
-
-                }
-
-            )
+            authObs= this.authService.signUp(email, password)
         }
+        
+        authObs.subscribe(
+            resData => {
+                console.log(resData);
+                this.isLoading = false
 
+
+            }, errorRes => {
+                // errorRes тут ми уже отримуємо дані що пройшли через pipe
+                // компонента має більше концентруватися на обновленні UI а не на обробці помилок
+                console.log(errorRes);
+                this.error = errorRes
+                this.isLoading = false
+
+            }
+
+        )
         form.reset()
 
     }

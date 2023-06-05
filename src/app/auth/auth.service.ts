@@ -4,14 +4,16 @@ import { catchError } from "rxjs/operators";
 // rxjs обгортає помилку в Observable
 import { throwError } from "rxjs";
 //формат відповіді з сервера 
-interface AuthResponseData {
+export interface AuthResponseData {
     kind: string;
     idToken: string;
     email: string;
     refreshToken: string;
     expiresIn: string;
     localId: string;
+    registered?: boolean
 }
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -39,5 +41,14 @@ export class AuthService {
                     return throwError(errorMessage)
                 })
             )
+    }
+
+    login(email: string, password: string) {
+       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA',
+            {
+                email,
+                password,
+                returnSecureToken: true
+            })
     }
 }
