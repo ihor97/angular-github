@@ -17,6 +17,8 @@ export class HeaderComponent {
         this.dataStorageService.storeRecipes()
     }
     fetchRecipes(){
-        this.dataStorageService.fetchRecipes()
+        // не обовязково ф-ю передавати в subscribe
+        this.dataStorageService.fetchRecipes().subscribe()
+        
     }
 }

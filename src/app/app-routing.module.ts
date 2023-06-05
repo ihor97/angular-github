@@ -5,6 +5,7 @@ import { NgModule } from "@angular/core";
 import { SelectRecipeComponent } from "./recipes/select-recipe/select-recipe.component";
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
 import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
+import { RecipeResolverService } from "./recipes/recipes-resolver.service";
 
 
 
@@ -19,8 +20,9 @@ const routes:Routes=[
         // адреса не може починатися з слеша
         // треба щоб роути без динамічних параметрів йшли першими тому що якщо вони будуть йти після значення в path буде парситися як динамічний параметр
         {path:'new',component:RecipeEditComponent},
-        {path:':id',component:RecipeDetailComponent},
-        {path:':id/edit',component:RecipeEditComponent},
+        // не забудь добавити резолвер в шляхи де він потрібен
+        {path:':id',component:RecipeDetailComponent,resolve:[RecipeResolverService]},
+        {path:':id/edit',component:RecipeEditComponent,resolve:[RecipeResolverService]},
     ]},
     {path:'shopping-list',component:ShoppingListComponent}
 ]
