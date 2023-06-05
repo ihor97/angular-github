@@ -21,8 +21,12 @@ export class RecipesService {
   constructor(private shoppingService: ShoppingListService) {
     
    }
+  //  метод для перезапису рецептів
+   setRecipes(recipes:Recipe[]){
+    this.recipes=recipes
+    this.recipeChanged.next(this.recipes.slice())
+   }
   getRecipes() {
-   
     return this.recipes.slice()
   }
   addIngredientsToShoppingList(ingredients: Ingredient[]) {

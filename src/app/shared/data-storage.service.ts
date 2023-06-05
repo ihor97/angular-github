@@ -25,19 +25,13 @@ export class DataStorageService{
         )
     }
 
-    getRecipes(){
+    fetchRecipes(){
         return this.http
-            .get<{[key:string]:Recipe}>('https://project-udemy-1fd00-default-rtdb.firebaseio.com/recipes.json')
-            .pipe(map(responseData=>{
-                const recipeArr:Recipe[]=[]
-                for (const key in responseData) {
-                    if (responseData.hasOwnProperty(key)) {
-                        recipeArr.push({...responseData[key],id:key}) 
-                    }
+            .get<Recipe[]>('https://project-udemy-1fd00-default-rtdb.firebaseio.com/recipes.json')
+            .subscribe(
+                recipes=>{
+                    this.recipeService.setRecipes(recipes)
                 }
-                return recipeArr
-            })
-                
             )
     }
 
