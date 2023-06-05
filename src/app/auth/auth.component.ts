@@ -9,7 +9,7 @@ import { AuthService } from "./auth.service";
 })
 export class AuthComponent {
     // прікольно що в тип string присвоїли null
-    error:string=null
+    error: string = null
     isLoginMode = true
     isLoading = false
     constructor(private authService: AuthService) { }
@@ -34,10 +34,13 @@ export class AuthComponent {
                     this.isLoading = false
 
 
-                }, error => {
-                    console.log(error);
+                }, errorRes => {
+                    // errorRes тут ми уже отримуємо дані що пройшли через pipe
+                    // компонента має більше концентруватися на обновленні UI а не на обробці помилок
+                    console.log(errorRes);
+                    this.error = errorRes
                     this.isLoading = false
-                    this.error='An error occured'
+
 
                 }
 
