@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, tap } from "rxjs/operators";
 // rxjs обгортає помилку в Observable
-import { Subject, throwError } from "rxjs";
+import { BehaviorSubject, throwError } from "rxjs";
 import { User } from "./user.model";
 //формат відповіді з сервера 
 export interface AuthResponseData {
@@ -18,8 +18,12 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
     // ми будемо створювати юзера коли він ьуде залоговуватися
-    user = new Subject<User>()
+    // цей Subject дає доступ до емітованих даних навіть якщо вони не підписалися тоді коли дані буди випущені
+//    це означає якщо юзер вже залогувався ми можемо пізніше получити доступ до тих даних
+    user = new BehaviorSubject<User>(null)
+    
 
     constructor(private http: HttpClient) { }
     signUp(email: string, password: string) {
