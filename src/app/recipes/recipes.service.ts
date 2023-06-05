@@ -3,6 +3,7 @@ import { Recipe } from "./recipe.model";
 import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs";
+import { DataStorageService } from "../shared/data-storage.service";
 @Injectable({providedIn:'root'})
 export class RecipesService {
   recipeChanged=new Subject<Recipe[]>()
@@ -17,10 +18,11 @@ export class RecipesService {
 
   ]
 
-  constructor(private shoppingService: ShoppingListService) { }
+  constructor(private shoppingService: ShoppingListService) {
+    
+   }
   getRecipes() {
-    // повертаємо копію 
-
+   
     return this.recipes.slice()
   }
   addIngredientsToShoppingList(ingredients: Ingredient[]) {

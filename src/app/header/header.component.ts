@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { DataStorageService } from "../shared/data-storage.service";
+import { RecipesService } from "../recipes/recipes.service";
+import { Recipe } from "../recipes/recipe.model";
 
 @Component({
     templateUrl: './header.component.html',
@@ -7,6 +10,11 @@ import { Component } from "@angular/core";
 })
 export class HeaderComponent {
     collapsed = true;
+    constructor(private dataStorageService:DataStorageService){
 
+    }
+    saveRecipes(){
+        this.dataStorageService.storeRecipes()
+    }
 
 }

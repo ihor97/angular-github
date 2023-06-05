@@ -23,7 +23,6 @@ subscription:Subscription
         this.recipes=recipes
       }
     )
-    console.log(this.recipes);
     
   }
   onNewRecipe(){
