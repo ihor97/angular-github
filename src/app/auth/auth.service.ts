@@ -16,7 +16,7 @@ export class AuthService {
     constructor(private http: HttpClient) { }
     signUp(email: string, password: string) {
         // так як нам треба відповідь з сервера ми повертаємо цей Observable
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA]',
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA',
             {
                 email,
                 password,
