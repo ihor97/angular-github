@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 // rxjs обгортає помилку в Observable
-import { throwError } from "rxjs";
+import { Subject, throwError } from "rxjs";
+import { User } from "./user.model";
 //формат відповіді з сервера 
 export interface AuthResponseData {
     kind: string;
@@ -17,6 +18,8 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    // ми будемо створювати юзера коли він ьуде залоговуватися
+    user = new Subject<User>()
 
     constructor(private http: HttpClient) { }
     signUp(email: string, password: string) {
@@ -28,7 +31,11 @@ export class AuthService {
                 returnSecureToken: true
             }).pipe(
                 // ми можемо просто передати силку на ф-ю і параметр закинеться туди автоматично
-                catchError(this.handleError)
+                catchError(this.handleError),
+                // tap дозволяє виконувати дії не міняючи відповідь з сервера
+                tap(resData => {
+                    this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
+                })
             )
     }
 
@@ -39,8 +46,19 @@ export class AuthService {
                 password,
                 returnSecureToken: true
             }).pipe(
-                catchError(this.handleError)
+                catchError(this.handleError),
+                tap(resData => {
+                    this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
+                })
             )
+    }
+    // метод для створення юзера
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+        // це дає нам дату прострочення токену
+        // якщо ми обгортаємо мілісекунди в new Date(miliseconds ) це дає нам звичайну дату
+        const experationData = new Date(new Date().getTime() + +expiresIn * 1000)
+        const user = new User(email, userId, token, experationData)
+        this.user.next(user)
     }
 
     private handleError(errorRes: HttpErrorResponse) {
@@ -55,10 +73,10 @@ export class AuthService {
                 errorMessage = 'The email address is already in use by another account'
                 break;
             case 'EMAIL_NOT_FOUND':
-                errorMessage='There is no user record corresponding to this identifier. The user may have been deleted.'
+                errorMessage = 'There is no user record corresponding to this identifier. The user may have been deleted.'
                 break;
             case 'INVALID_PASSWORD':
-                errorMessage='The password is invalid or the user does not have a password.'
+                errorMessage = 'The password is invalid or the user does not have a password.'
                 break;
         }
         return throwError(errorMessage)
