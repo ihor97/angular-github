@@ -41,16 +41,12 @@ export class DataStorageService {
    так як ми вже в операторі pipe ми просто вставляємо map i tap
     */
 
-       return this.authService.user.pipe(take((1)), 
-        exhaustMap(user => {
+    
             return this.http
-                .get<Recipe[]>('https://project-udemy-1fd00-default-rtdb.firebaseio.com/recipes.json',{
-                    // закидуємо токен як параметри в урлу
-                    // api firebase вимагає параметр  auth
-                    params:new HttpParams().set('auth',user.token)
-                })
-
-        }), map(
+                .get<Recipe[]>('https://project-udemy-1fd00-default-rtdb.firebaseio.com/recipes.json',)
+                
+                .pipe(
+                 map(
             (recipes) => {
                 return recipes.map(recipe => {
                     //  юзаємо спред оператор тут ми докидуємо властивість ingredients
@@ -68,7 +64,10 @@ export class DataStorageService {
             (recipes: Recipe[]) => {
                 this.recipeService.setRecipes(recipes)
             }
-        ))
+        )    
+                )
+
+       
 
 
     }
