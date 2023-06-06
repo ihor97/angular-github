@@ -4,6 +4,7 @@ import { catchError, tap } from "rxjs/operators";
 // rxjs обгортає помилку в Observable
 import { BehaviorSubject, throwError } from "rxjs";
 import { User } from "./user.model";
+import { Router } from "@angular/router";
 //формат відповіді з сервера 
 export interface AuthResponseData {
     kind: string;
@@ -25,7 +26,7 @@ export class AuthService {
     user = new BehaviorSubject<User>(null)
     
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,private router:Router) { }
     signUp(email: string, password: string) {
         // так як нам треба відповідь з сервера ми повертаємо цей Observable
         return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA',
@@ -84,5 +85,12 @@ export class AuthService {
                 break;
         }
         return throwError(errorMessage)
+    }
+
+    logout(){
+        // вилоговуємось
+        this.user.next(null)
+        this.router.navigate(['/auth'])
+
     }
 }
