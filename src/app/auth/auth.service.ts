@@ -19,7 +19,7 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
+private tokenExpirationTimer:any
     // ми будемо створювати юзера коли він ьуде залоговуватися
     // цей Subject дає доступ до емітованих даних навіть якщо вони не підписалися тоді коли дані буди випущені
 //    це означає якщо юзер вже залогувався ми можемо пізніше получити доступ до тих даних
@@ -64,6 +64,7 @@ export class AuthService {
         const experationData = new Date(new Date().getTime() + +expiresIn * 1000)
         const user = new User(email, userId, token, experationData)
         this.user.next(user)
+        this.autoLogout(expiresIn*1000)
         // зберігаємо нашого юзера
         localStorage.setItem('userData',JSON.stringify(user))
     }
@@ -93,7 +94,18 @@ export class AuthService {
         // вилоговуємось
         this.user.next(null)
         this.router.navigate(['/auth'])
+        localStorage.removeItem('userData')
+    // якщо в нас є актривний таймер ми його обнуляємо
+        if(this.tokenExpirationTimer){
+            clearTimeout(this.tokenExpirationTimer)
+        }
 
+    }
+    autoLogout(expirationDuration:number){
+      this.tokenExpirationTimer= setTimeout(() => {
+        // вилоговування проходить автоматично коли дія токена виходить
+            this.logout()
+        }, expirationDuration);
     }
     autoLogin(){
      const userData:{email:string;id:string;_token:string,_tokenExpirationDate:string}=JSON.parse(localStorage.getItem('userData'))   
@@ -106,6 +118,9 @@ export class AuthService {
         if(loadedUser.token){
             // передаємо нашого залогованого юзера
             this.user.next(loadedUser)
+
+            const expirationDuration=new Date(userData._tokenExpirationDate).getTime()-new Date().getTime()
+            this.autoLogout(expirationDuration)
         }
     }
     }
