@@ -64,6 +64,8 @@ export class AuthService {
         const experationData = new Date(new Date().getTime() + +expiresIn * 1000)
         const user = new User(email, userId, token, experationData)
         this.user.next(user)
+        // зберігаємо нашого юзера
+        localStorage.setItem('userData',JSON.stringify(user))
     }
 
     private handleError(errorRes: HttpErrorResponse) {
@@ -92,5 +94,19 @@ export class AuthService {
         this.user.next(null)
         this.router.navigate(['/auth'])
 
+    }
+    autoLogin(){
+     const userData:{email:string;id:string;_token:string,_tokenExpirationDate:string}=JSON.parse(localStorage.getItem('userData'))   
+     if(!userData){
+        return;
+     }{
+        // так як userData._tokenExpirationDate строчка в форматі Date ми можемо її передати в new Date() щоб получити дату
+        const loadedUser=new User(userData.email,userData.id,userData._token,new Date(userData._tokenExpirationDate))
+    //    loadedUser.token це є гетер який вертає null  якщо він прострочений
+        if(loadedUser.token){
+            // передаємо нашого залогованого юзера
+            this.user.next(loadedUser)
+        }
+    }
     }
 }
