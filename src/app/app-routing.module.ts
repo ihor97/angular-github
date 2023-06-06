@@ -7,6 +7,7 @@ import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.com
 import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
 import { RecipeResolverService } from "./recipes/recipes-resolver.service";
 import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 
 
@@ -14,7 +15,7 @@ import { AuthComponent } from "./auth/auth.component";
 const routes:Routes=[
     // можна ще це добавити, pathMatch:'full' вказуємо для того тому що '' є частиною усіх шляхів, тобто робити редірект якщо весь шлях є ''
     {path:'',redirectTo:'recipes',pathMatch:'full'},
-    {path:'recipes',component:RecipesComponent,children:[
+    {path:'recipes',component:RecipesComponent,canActivate:[AuthGuard],children:[
         // замість того щоб редіректити можна поставити просто ''
         // {path:'',redirectTo:'choose-recipe',pathMatch:'full'},
         {path:'',component:SelectRecipeComponent},
