@@ -55,4 +55,8 @@ export class AuthComponent {
         form.reset()
 
     }
+    // закриваємо модалку
+    onHandleError(){
+        this.error=null
+    }
 }
