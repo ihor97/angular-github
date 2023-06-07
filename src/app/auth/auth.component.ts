@@ -1,9 +1,10 @@
-import { Component, ComponentFactoryResolver } from "@angular/core";
+import { Component, ComponentFactoryResolver, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthResponseData, AuthService } from "./auth.service";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertComponent } from "../shared/alert/alert.component";
+import { PlaceholderDirective } from "../shared/placeholder/placeholder.directive";
 
 @Component({
     selector: 'app-auth',
@@ -11,6 +12,8 @@ import { AlertComponent } from "../shared/alert/alert.component";
 
 })
 export class AuthComponent {
+    // запхали директиву 
+    @ViewChild(PlaceholderDirective) alertHost:PlaceholderDirective
     // прікольно що в тип string присвоїли null
     error: string = null
     isLoginMode = true
@@ -66,7 +69,12 @@ export class AuthComponent {
         // const alertComp=new AlertComponent() неправильний підхід
         // використовуємо резолвер щоб отримати доступ до фабрики компонент
         const alertComponentFactory= this.componentFactoryResolver.resolveComponentFactory(AlertComponent)
-        
+        const hostViewContainerRef=this.alertHost.viewContainerRef
+        // на всякий випадок очищаємо контейнер
+        hostViewContainerRef.clear()
+// тут уже створюється компонента в потрібному нам місці
+        hostViewContainerRef.createComponent(alertComponentFactory)
+
     }
 
 
