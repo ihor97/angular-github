@@ -48,6 +48,10 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     HttpClientModule
   ],
   providers: [ShoppingListService,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // коли ми хочемо створити компоненту вручну тоді треба ще додати це поле
+  entryComponents:[
+    AlertComponent
+  ]
 })
 export class AppModule { }
