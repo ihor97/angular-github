@@ -1,7 +1,7 @@
-import { Component, ComponentFactoryResolver, ViewChild } from "@angular/core";
+import { Component, ComponentFactoryResolver, OnDestroy, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthResponseData, AuthService } from "./auth.service";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertComponent } from "../shared/alert/alert.component";
 import { PlaceholderDirective } from "../shared/placeholder/placeholder.directive";
@@ -11,9 +11,10 @@ import { PlaceholderDirective } from "../shared/placeholder/placeholder.directiv
     templateUrl: './auth.component.html'
 
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
     // запхали директиву 
     @ViewChild(PlaceholderDirective) alertHost:PlaceholderDirective
+    private closeSub:Subscription
     // прікольно що в тип string присвоїли null
     error: string = null
     isLoginMode = true
@@ -73,8 +74,25 @@ export class AuthComponent {
         // на всякий випадок очищаємо контейнер
         hostViewContainerRef.clear()
 // тут уже створюється компонента в потрібному нам місці
-        hostViewContainerRef.createComponent(alertComponentFactory)
+      const componentRef=  hostViewContainerRef.createComponent(alertComponentFactory)
+// конфігуруємо компоненту щоб дані відображалися коректно
+      componentRef.instance.message=message
 
+    //   ця підписка автоматично не стирається
+    // це є імітер з компоненти
+    this.closeSub= componentRef.instance.close.subscribe(
+        ()=>{
+            this.closeSub.unsubscribe()
+            hostViewContainerRef.clear()
+        }
+      )
+
+    }
+    ngOnDestroy(): void {
+        if(this.closeSub){
+            // відписуємось ше якщо компоненти вмирає
+            this.closeSub.unsubscribe()
+        }
     }
 
 
