@@ -8,7 +8,7 @@ import { RecipesComponent } from "./recipes.component";
 import { SelectRecipeComponent } from "./select-recipe/select-recipe.component";
 
 const routes:Routes=[
-    {path:'recipes',component:RecipesComponent,canActivate:[AuthGuard],children:[
+    {path:'',component:RecipesComponent,canActivate:[AuthGuard],children:[
         // замість того щоб редіректити можна поставити просто ''
         // {path:'',redirectTo:'choose-recipe',pathMatch:'full'},
         {path:'',component:SelectRecipeComponent},

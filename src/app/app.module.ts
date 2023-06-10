@@ -4,7 +4,6 @@ import { HeaderComponent } from './header/header.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {  HttpClientModule } from '@angular/common/http';
-import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
@@ -18,7 +17,7 @@ import { AuthModule } from './auth/aurh.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RecipesModule,
+    // забираємо RecipesModule звідси так як ми його будемо підзружати ліниво
     ShoppingListModule,
     SharedModule,
     CoreModule,

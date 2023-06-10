@@ -1,4 +1,6 @@
 import { NgModule } from "@angular/core";
+
+// для того щоб lazy працювало треба щоб компоненти що відносяться до рецептів були зібрані тільки тут
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { RecipeItemComponent } from "./recipe-list/recipe-item/recipe-item.component";
