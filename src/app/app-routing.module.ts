@@ -32,6 +32,9 @@ const routes:Routes=[
 
 @NgModule({
     imports:[RouterModule.forRoot(routes)],
+    // кожен модуль працює по своєму ладу, вони не комунікують між собою
+    // не можна використовувати одні  і ті самі компоненти в різних модулях
+    // ми його експортуємо так як хочемо його юзати в іншому модулі а не тут
     exports:[RouterModule]
 })
 export class AppRoutingModule{

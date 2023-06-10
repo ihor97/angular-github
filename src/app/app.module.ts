@@ -40,6 +40,8 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     PlaceholderDirective
    
   ],
+  // сюди імпортуємо модулі
+  // тут модулі обєднують функціонал так що нам не треба імпортувати окремо всі директиви 
   imports: [
     BrowserModule,
     FormsModule,
@@ -48,6 +50,7 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     HttpClientModule
   ],
   providers: [ShoppingListService,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
+//  це компонента яка лежить в index.html 
   bootstrap: [AppComponent],
   // коли ми хочемо створити компоненту вручну тоді треба ще додати це поле
   entryComponents:[
