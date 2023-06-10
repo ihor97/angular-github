@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { ShoppingListEditComponent } from "./shopping-list-edit/shopping-list-edit.component";
 import { ShoppingListComponent } from "./shopping-list.component";
-import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { SharedModule } from "../shared/shared.module";
 
 
 
@@ -11,7 +11,7 @@ import { RouterModule } from "@angular/router";
     declarations: [
         ShoppingListComponent,
         ShoppingListEditComponent,],
-    imports: [CommonModule,FormsModule,
+    imports: [SharedModule,FormsModule,
         // якщо у нас один роут то можна це вказати зрвзу в імпортах
         RouterModule.forChild(
         [ {path:'shopping-list',component:ShoppingListComponent},]
