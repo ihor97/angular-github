@@ -4,10 +4,8 @@ import { HeaderComponent } from './header/header.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {  HttpClientModule } from '@angular/common/http';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { AuthModule } from './auth/aurh.module';
 @NgModule({
   // пайпи директиви і компоненти можна декларувати тільки раз
   declarations: [AppComponent,HeaderComponent],
@@ -17,11 +15,9 @@ import { AuthModule } from './auth/aurh.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    // забираємо RecipesModule звідси так як ми його будемо підзружати ліниво
-    ShoppingListModule,
+    // забираємо RecipesModule,AuthModule,ShoppingListModule звідси так як ми його будемо підзружати ліниво
     SharedModule,
     CoreModule,
-    AuthModule
   ],
   providers: [],
 //  це компонента яка лежить в index.html 
