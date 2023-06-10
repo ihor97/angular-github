@@ -34,6 +34,7 @@ import { RecipesModule } from './recipes/recipes.module';
 
   // сюди додаються інші модулі що мають декоратор NgModule
   imports: [
+    // BrowserModule можна заюзати тільки раз
     BrowserModule,
     FormsModule,
     AppRoutingModule,
