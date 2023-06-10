@@ -22,13 +22,8 @@ import { RecipesRoutingModule } from "./recipes-routing.module";
 
     imports: [RouterModule, CommonModule, ReactiveFormsModule,RecipesRoutingModule]
     , exports: [
-        RecipesComponent,
-        RecipeListComponent,
-        RecipeDetailComponent,
-        RecipeItemComponent,
-        SelectRecipeComponent,
-        RecipeEditComponent,
-
+// так як ми використовуємо компоненти в RecipesRoutingModule то можна їх не експортувати
+// ми їх і так не будемо юзати в AppComponent
     ]
 })
 export class RecipesModule {
