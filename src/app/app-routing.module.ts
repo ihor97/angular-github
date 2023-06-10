@@ -5,7 +5,6 @@ import { AuthComponent } from "./auth/auth.component";
 const routes:Routes=[
     // можна ще це добавити, pathMatch:'full' вказуємо для того тому що '' є частиною усіх шляхів, тобто робити редірект якщо весь шлях є ''
     {path:'',redirectTo:'recipes',pathMatch:'full'},
-    {path:'auth',component:AuthComponent}
 ]
 
 @NgModule({
