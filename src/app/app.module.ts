@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {  HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+import { LoggingService } from './logging.service';
 @NgModule({
   // пайпи директиви і компоненти можна декларувати тільки раз
   declarations: [AppComponent,HeaderComponent],
@@ -19,7 +20,7 @@ import { CoreModule } from './core.module';
     SharedModule,
     CoreModule,
   ],
-  providers: [],
+  // providers: [LoggingService],
 //  це компонента яка лежить в index.html 
   bootstrap: [AppComponent],
   // коли ми хочемо створити компоненту вручну тоді треба ще додати це поле
