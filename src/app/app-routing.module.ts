@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from "@angular/router";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 const routes:Routes=[
@@ -16,7 +16,8 @@ const routes:Routes=[
 ]
 
 @NgModule({
-    imports:[RouterModule.forRoot(routes)],
+    // підщружаємо інші модулі так що перехід на інщу сторінку відбуватиметься швидше
+    imports:[RouterModule.forRoot(routes,{preloadingStrategy:PreloadAllModules})],
     // кожен модуль працює по своєму ладу, вони не комунікують між собою
     // не можна використовувати одні  і ті самі компоненти в різних модулях
     // ми його експортуємо так як хочемо його юзати в іншому модулі а не тут
