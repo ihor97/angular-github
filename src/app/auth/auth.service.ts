@@ -5,6 +5,7 @@ import { catchError, tap } from "rxjs/operators";
 import { BehaviorSubject, throwError } from "rxjs";
 import { User } from "./user.model";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 //формат відповіді з сервера 
 export interface AuthResponseData {
     kind: string;
@@ -29,7 +30,7 @@ private tokenExpirationTimer:any
     constructor(private http: HttpClient,private router:Router) { }
     signUp(email: string, password: string) {
         // так як нам треба відповідь з сервера ми повертаємо цей Observable
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA',
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+environment.firebaseAPIKey,
             {
                 email,
                 password,
@@ -45,7 +46,7 @@ private tokenExpirationTimer:any
     }
 
     login(email: string, password: string) {
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA',
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+environment.firebaseAPIKey,
             {
                 email,
                 password,

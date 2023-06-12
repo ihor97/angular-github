@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // коли ми вставимо сюди ключ в файлі prod.ts значення автоматично оновляться
+  firebaseAPIKey:'AIzaSyBxIDbEeDSzxrzQcbcg8dDM2rTB8PIKcxA'
 };
 
 /*
