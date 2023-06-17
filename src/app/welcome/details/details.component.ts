@@ -8,7 +8,9 @@ import { HighlightDirective } from 'src/app/shared/highlight.directive';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
   // ми видалили Shared Module і тепер імпортуємо просто директиву
-  imports:[HighlightDirective]
+  imports:[HighlightDirective],
+  // закинули сюди сервіс тепер 
+  // providers:[AnalyticsService]
 })
 export class DetailsComponent {
   constructor(private analyticsService: AnalyticsService) {}
