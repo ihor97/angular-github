@@ -11,13 +11,17 @@ const routes: Route[] = [
   },
   {
     path: 'about',
-    component: AboutComponent,
+    // тут можна юзати стандалоне компоненти
+    // component: AboutComponent,
+    // ця фіча працює тільки для стандалоне
+    // тепер можна підгружати компоненти ліниво
+    loadComponent:()=>import('./about/about.component').then(mod=>mod.AboutComponent)
   },
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./dashboard/dashboard-routing.module').then(
-        (mod) => mod.DashboardRoutingModule
+      import('./dashboard/routes').then(
+        (mod) => mod.DASHBOARD_ROUTES
       ),
   },
 ];
