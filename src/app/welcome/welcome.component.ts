@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+
 import { DetailsComponent } from './details/details.component';
 
 @Component({
-  standalone:true,
+  standalone: true,
+  imports: [DetailsComponent],
   selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  // можна буде юзати тоді коли наша компента буде standalone 
-  imports:[DetailsComponent]
+  templateUrl: './welcome.component.html'
 })
 export class WelcomeComponent {}
