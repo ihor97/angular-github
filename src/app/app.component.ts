@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { LoggingService } from './logging.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +9,8 @@ import { LoggingService } from './logging.service';
 export class AppComponent implements OnInit {
   title = 'udemy-github';
 
-  constructor(private authService:AuthService,private logServ:LoggingService){}
+  constructor(private authService:AuthService){}
 ngOnInit(): void {
-  this.logServ.printLog('From App')
 this.authService.autoLogin()
 }
 }

@@ -4,7 +4,6 @@ import { ShoppingListComponent } from "./shopping-list.component";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
-import { LoggingService } from "../logging.service";
 
 
 
