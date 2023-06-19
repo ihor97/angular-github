@@ -1,7 +1,7 @@
 
 // actions є для того щоб активізувати редюсери (тобто події )
 
-import { createAction, props } from "@ngrx/store";
+import { Action, createAction, props } from "@ngrx/store";
 
 export const increment=createAction(
     '[Counter] Increment',
@@ -9,5 +9,14 @@ export const increment=createAction(
     props<{value:number}>()
 );
 
+// export const INCREMENT='[Counter] Increment'
+// // альтернативний варіант 
+// export class IncrementAction implements Action{
+//  readonly type: string=INCREMENT;
 
+// constructor(public value:number){
 
+// }
+// }
+
+// export type CounterActions=IncrementAction 
