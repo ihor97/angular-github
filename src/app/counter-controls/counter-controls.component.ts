@@ -13,7 +13,8 @@ export class CounterControlsComponent {
 
   increment() {
     // викликаємо подію
-    this.store.dispatch(increment())
+    // збільщуємо на 2
+    this.store.dispatch(increment({value:2}))
   }
 
   decrement() {

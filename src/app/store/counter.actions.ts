@@ -1,12 +1,12 @@
 
 // actions є для того щоб активізувати редюсери (тобто події )
 
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 
 export const increment=createAction(
-    // ідентифікатор для action
-    // [Counter]  типу як айді для події
-    '[Counter] Increment'
+    '[Counter] Increment',
+    // дата
+    props<{value:number}>()
 );
 
 
