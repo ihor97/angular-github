@@ -1,0 +1,102 @@
+[routerLinkActiveOptions]="{exact:true}
+
+<a [routerLink]="['/user',10,'Anna']">Load Anna</a> 10 і Anna це є динамічні параметри
+
+this.route.params.subscribe(
+      (params:Params)=>{
+        this.user.id=+params['id']
+        this.user.name=params['name']
+      }
+    )
+
++this.route.snapshot.params['id'] дістаємо значення параметра id
+
+
+ {path:'servers/:id/edit',component:EditServerComponent}, динамічні параметри позначаються двокрапкою
+
+    <a
+        [routerLink]="['/servers',5,'edit']"   //path:'servers/:id/edit' тобто 5 залітає в :id
+        [queryParams]="{allowEdit:'1'}"
+        fragment="loading">
+    </a>
+
+//те саме але програмно
+
+this.router.navigate(['/servers',id,'edit'],{queryParams:{allowEdit:1},fragment:'loading'})
+
+
+this.actRoute.queryParams.subscribe() //до queryParams і fragment теж можна підписуватися бо не знати коли користувач клікне по силці
+this.actRoute.fragment.subscribe()
+
+ 
+this.router.navigate(['edit'],{relativeTo:this.actRoute,queryParamsHandling:'preserve'}) // queryParamsHandling:'preserve' зберігає параметри в силці
+
+
+{path:'not-found',component:PageNotFoundComponent},
+{path:'**',redirectTo:'not-found'},// перенаправлення якщо шлях не був знайдений
+
+
+//конфігурація app-routing.module.ts
+@NgModule({
+    imports:[
+    // конфігурація модуля
+        RouterModule.forRoot(appRoutes)
+    ],
+    // вказує що буде доступним ззовні цього модуля
+    exports:[RouterModule]
+})
+
+canActivate
+{path:'servers',canActivate:[AuthGuard],component:ServersComponent}
+//  AuthGuard мусить імплементити CanActivate  інтерфейс
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+    }
+
+
+canActivateChild
+// AuthGuard мусить імплементити CanActivateChild   інтерфейс  
+canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+: boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.canActivate(childRoute,state)
+}
+
+
+canDeactivate
+
+export interface CanComponentDeactivate {
+    canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean
+}
+// CanDeactivate інтерфейс приймає дженерік (в даному випадку це інтерфейс CanComponentDeactivate з методом canDeactivate )
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
+ canDeactivate(
+        component: CanComponentDeactivate,
+        currentRoute: ActivatedRouteSnapshot,
+        currentState: RouterStateSnapshot,
+        nextState?: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+            return component.canDeactivate()
+    }
+
+компонента потім мусить теж імплементити інтерфейс CanComponentDeactivate
+
+export class EditServerComponent implements OnInit,CanComponentDeactivate 
+
+
+{path:'not-found',component:ErrorPageComponent,data:{message:'Page not found!'}} //прокидуємо якісь статичні дані
+
+this.route.data.subscribe(
+      (data:Data)=>{
+        this.errorMessage=data['message']
+      }
+    )
+
+Resolver має імплементити інтерфейс Resolve який теж є дженеріком що вказує на те які дані будуть резолвитись
+
+export class ServerResolver implements Resolve<{id:number,name:string,status:string}>
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): { id: number; name: string; status: string; } | Observable<{ id: number; name: string; status: string; }> | Promise<{ id: number; name: string; status: string; }> {
+       //так як резолвер знає де він знаходиться можемо витянути дані з актривованого шляху
+        return this.serversService.getServer(+route.params['id'])
+    }
+// так ми закидуємо дані 
+
+       {path:':id',component:ServerComponent,resolve:{server:ServerResolver}}
